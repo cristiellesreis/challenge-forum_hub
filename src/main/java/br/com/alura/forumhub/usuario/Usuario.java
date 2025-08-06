@@ -15,8 +15,16 @@ public class Usuario {
     private Long id;
 
     private String nome;
+    private String email;
+    private String senha;
 
     public Usuario(DadosUsuario dados) {
         this.nome = dados.nome();
+    }
+
+    public Usuario(DadosCadastroUsuario dados) {
+        this.nome = dados.nome();
+        this.email = dados.email();
+        this.senha = dados.senha();
     }
 }

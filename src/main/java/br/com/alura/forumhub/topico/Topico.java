@@ -1,6 +1,7 @@
 package br.com.alura.forumhub.topico;
 
 import br.com.alura.forumhub.curso.Curso;
+import br.com.alura.forumhub.curso.DadosCadastroCurso;
 import br.com.alura.forumhub.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,12 +37,12 @@ public class Topico {
     @JoinColumn(name = "curso_id")
     private Curso curso;
 
-    public Topico(DadosCadastroTopicos dados) {
+    public Topico(DadosCadastroTopico dados, Usuario autor, Curso curso) {
         this.titulo = dados.titulo();
         this.mensagem = dados.mensagem();
         this.data = dados.data();
         this.status = dados.status();
-        this.autor = new Usuario(dados.autor());
-        this.curso = new Curso(dados.curso());
+        this.autor = autor;
+        this.curso = curso;
     }
 }

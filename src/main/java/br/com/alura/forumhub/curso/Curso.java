@@ -22,7 +22,7 @@ public class Curso {
     @Enumerated(EnumType.STRING)
     private CategoriaCursos categoria;
 
-    public Curso(DadosCurso dados) {
+    public Curso(DadosCadastroCurso dados) {
         this.nome = dados.nome();
         this.categoria = dados.categoria();
     }
