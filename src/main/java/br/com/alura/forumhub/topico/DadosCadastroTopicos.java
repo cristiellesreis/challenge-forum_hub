@@ -1,7 +1,7 @@
 package br.com.alura.forumhub.topico;
 
 import br.com.alura.forumhub.curso.DadosCurso;
-import br.com.alura.forumhub.usuario.DadosUsuarioId;
+import br.com.alura.forumhub.usuario.DadosUsuario;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +10,6 @@ public record DadosCadastroTopicos(Long id,
                                    String mensagem,
                                    LocalDateTime data,
                                    StatusTopico status,
-                                   DadosUsuarioId autor,
+                                   DadosUsuario autor,
                                    DadosCurso curso) {
 }
