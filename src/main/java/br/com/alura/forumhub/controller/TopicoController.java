@@ -3,18 +3,20 @@ package br.com.alura.forumhub.controller;
 import br.com.alura.forumhub.curso.Curso;
 import br.com.alura.forumhub.curso.CursoRepository;
 import br.com.alura.forumhub.topico.DadosCadastroTopico;
+import br.com.alura.forumhub.topico.DadosListagemTopico;
 import br.com.alura.forumhub.topico.Topico;
 import br.com.alura.forumhub.topico.TopicoRepository;
 import br.com.alura.forumhub.usuario.Usuario;
 import br.com.alura.forumhub.usuario.UsuarioRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("topicos")
@@ -33,7 +35,7 @@ public class TopicoController {
     @Transactional
     public ResponseEntity<String> cadastrar(@RequestBody @Valid DadosCadastroTopico dados) {
 
-        if (repository.existsByTituloAndMensagem(dados.titulo(), dados.mensagem())){
+        if (repository.existsByTituloAndMensagem(dados.titulo(), dados.mensagem())) {
             return ResponseEntity.badRequest().body("Tópico duplicado: título e mensagem já existem!");
         }
 
@@ -46,4 +48,8 @@ public class TopicoController {
         return ResponseEntity.ok("Tópico cadastrado com sucesso");
     }
 
+    @GetMapping
+    public Page<DadosListagemTopico> listar(@PageableDefault(size = 10, sort = "data", direction = Sort.Direction.DESC) Pageable paginacao) {
+        return repository.findAll(paginacao).map(DadosListagemTopico::new);
+    }
 }

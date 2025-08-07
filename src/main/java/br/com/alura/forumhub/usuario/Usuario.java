@@ -2,12 +2,14 @@ package br.com.alura.forumhub.usuario;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "usuarios")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class Usuario {
 
     @Id
