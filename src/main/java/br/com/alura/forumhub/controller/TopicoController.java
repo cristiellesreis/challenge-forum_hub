@@ -50,10 +50,23 @@ public class TopicoController {
         return repository.findAll(paginacao).map(DadosListagemTopico::new);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosListagemTopico> detalhar(@PathVariable Long id) {
+        var topico = repository.getReferenceById(id);
+        var dadosListagemTopico = new DadosListagemTopico(topico);
+        return ResponseEntity.ok(dadosListagemTopico);
+    }
+
     @PutMapping
     @Transactional
     public void atualizar(@RequestBody @Valid DadosAtualizacaoTopico dados){
         var topico = repository.getReferenceById(dados.id());
         topico.atualizarInformacoes(dados);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void excluir(@PathVariable Long id){
+        repository.deleteById(id);
     }
 }
