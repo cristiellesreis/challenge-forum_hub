@@ -1,6 +1,17 @@
 package br.com.alura.forumhub.usuario;
 
-public record DadosCadastroUsuario(String nome,
-                                   String email,
-                                   String senha) {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+public record DadosCadastroUsuario(
+
+        @NotBlank
+        String nome,
+
+        @NotBlank
+        @Email
+        String email,
+
+        @NotBlank
+        String senha) {
 }

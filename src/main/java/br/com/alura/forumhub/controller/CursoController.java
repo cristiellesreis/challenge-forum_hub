@@ -4,6 +4,7 @@ import br.com.alura.forumhub.curso.Curso;
 import br.com.alura.forumhub.curso.CursoRepository;
 import br.com.alura.forumhub.curso.DadosCadastroCurso;
 import br.com.alura.forumhub.topico.Topico;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ public class CursoController {
 
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody DadosCadastroCurso dados){
+    public void cadastrar(@RequestBody @Valid DadosCadastroCurso dados){
         repository.save(new Curso(dados));
     }
 }

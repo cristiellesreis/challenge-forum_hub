@@ -1,4 +1,6 @@
 package br.com.alura.forumhub.usuario;
 
-public record DadosUsuario(Long id, String nome) {
+public record DadosUsuario(
+        Long id,
+        String nome) {
 }

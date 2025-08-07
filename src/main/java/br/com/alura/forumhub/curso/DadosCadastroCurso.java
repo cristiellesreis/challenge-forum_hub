@@ -1,6 +1,15 @@
 package br.com.alura.forumhub.curso;
 
-public record DadosCadastroCurso(Long id,
-                                 String nome,
-                                 CategoriaCursos categoria) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record DadosCadastroCurso(
+
+        Long id,
+
+        @NotBlank
+        String nome,
+
+        @NotNull
+        CategoriaCursos categoria) {
 }
