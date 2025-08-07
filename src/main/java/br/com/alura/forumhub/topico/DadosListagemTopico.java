@@ -5,7 +5,8 @@ import br.com.alura.forumhub.usuario.DadosUsuario;
 
 import java.time.LocalDateTime;
 
-public record DadosListagemTopico(String titulo,
+public record DadosListagemTopico(Long id,
+                                  String titulo,
                                   String mensagem,
                                   LocalDateTime data,
                                   StatusTopico status,
@@ -14,11 +15,6 @@ public record DadosListagemTopico(String titulo,
 
 
     public DadosListagemTopico(Topico topico) {
-        this(topico.getTitulo(),
-                topico.getMensagem(),
-                topico.getData(),
-                topico.getStatus(),
-                new DadosUsuario(topico.getAutor().getId(), topico.getAutor().getNome()),
-                new DadosListagemCurso(topico.getCurso()));
+        this(topico.getId(), topico.getTitulo(), topico.getMensagem(), topico.getData(), topico.getStatus(), new DadosUsuario(topico.getAutor().getId(), topico.getAutor().getNome()), new DadosListagemCurso(topico.getCurso()));
     }
 }

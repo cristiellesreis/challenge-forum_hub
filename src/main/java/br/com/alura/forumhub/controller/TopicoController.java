@@ -2,10 +2,7 @@ package br.com.alura.forumhub.controller;
 
 import br.com.alura.forumhub.curso.Curso;
 import br.com.alura.forumhub.curso.CursoRepository;
-import br.com.alura.forumhub.topico.DadosCadastroTopico;
-import br.com.alura.forumhub.topico.DadosListagemTopico;
-import br.com.alura.forumhub.topico.Topico;
-import br.com.alura.forumhub.topico.TopicoRepository;
+import br.com.alura.forumhub.topico.*;
 import br.com.alura.forumhub.usuario.Usuario;
 import br.com.alura.forumhub.usuario.UsuarioRepository;
 import jakarta.validation.Valid;
@@ -51,5 +48,12 @@ public class TopicoController {
     @GetMapping
     public Page<DadosListagemTopico> listar(@PageableDefault(size = 10, sort = "data", direction = Sort.Direction.ASC) Pageable paginacao) {
         return repository.findAll(paginacao).map(DadosListagemTopico::new);
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid DadosAtualizacaoTopico dados){
+        var topico = repository.getReferenceById(dados.id());
+        topico.atualizarInformacoes(dados);
     }
 }
