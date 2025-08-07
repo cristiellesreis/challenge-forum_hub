@@ -1,9 +1,8 @@
 package br.com.alura.forumhub.controller;
 
-import br.com.alura.forumhub.usuario.DadosCadastroUsuario;
-import br.com.alura.forumhub.usuario.DadosListagemUsuario;
-import br.com.alura.forumhub.usuario.Usuario;
-import br.com.alura.forumhub.usuario.UsuarioRepository;
+import br.com.alura.forumhub.topico.DadosAtualizacaoTopico;
+import br.com.alura.forumhub.topico.DadosListagemTopico;
+import br.com.alura.forumhub.usuario.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,5 +32,15 @@ public class UsuarioController {
     @GetMapping
     public Page<DadosListagemUsuario> listar(@PageableDefault(size=10, sort = {"nome"}) Pageable paginacao){
         return repository.findAll(paginacao).map(DadosListagemUsuario::new);
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<DadosListagemUsuario> atualizar(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoUsuario dados) {
+        var usuario = repository.getReferenceById(id);
+
+        usuario.atualizarInformacoes(dados);
+
+        return ResponseEntity.ok(new DadosListagemUsuario(usuario));
     }
 }

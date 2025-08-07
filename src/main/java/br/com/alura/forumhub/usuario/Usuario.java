@@ -1,6 +1,8 @@
 package br.com.alura.forumhub.usuario;
 
+import br.com.alura.forumhub.topico.DadosAtualizacaoTopico;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,5 +30,20 @@ public class Usuario {
         this.nome = dados.nome();
         this.email = dados.email();
         this.senha = dados.senha();
+    }
+
+    public void atualizarInformacoes(@Valid DadosAtualizacaoUsuario dados) {
+
+        if (dados.nome() != null){
+            this.nome = dados.nome();
+        }
+
+        if (dados.email() != null){
+            this.email = dados.email();
+        }
+
+        if (dados.senha() != null){
+            this.senha = dados.senha();
+        }
     }
 }

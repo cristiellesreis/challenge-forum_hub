@@ -1,8 +1,8 @@
 package br.com.alura.forumhub.usuario;
 
-public record DadosListagemUsuario(String nome) {
+public record DadosListagemUsuario(Long id, String nome) {
 
     public DadosListagemUsuario(Usuario usuario){
-        this(usuario.getNome());
+        this(usuario.getId(), usuario.getNome());
     }
 }

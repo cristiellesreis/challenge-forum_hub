@@ -69,7 +69,11 @@ public class TopicoController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void excluir(@PathVariable Long id){
-        repository.deleteById(id);
+    public ResponseEntity<?> excluir(@PathVariable Long id) {
+        if (repository.findById(id).isPresent()) {
+            repository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
