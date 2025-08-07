@@ -49,7 +49,7 @@ public class TopicoController {
     }
 
     @GetMapping
-    public Page<DadosListagemTopico> listar(@PageableDefault(size = 10, sort = "data", direction = Sort.Direction.DESC) Pageable paginacao) {
+    public Page<DadosListagemTopico> listar(@PageableDefault(size = 10, sort = "data", direction = Sort.Direction.ASC) Pageable paginacao) {
         return repository.findAll(paginacao).map(DadosListagemTopico::new);
     }
 }
