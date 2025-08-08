@@ -11,13 +11,7 @@ public record DadosDetalhamentoTopico(String titulo,
 
     public DadosDetalhamentoTopico(Topico topico) {
 
-        this(
-                topico.getTitulo(),
-                topico.getMensagem(),
-                topico.getData(),
-                topico.getStatus(),
-                topico.getAutor().getNome(),
-                topico.getCurso().getNome()
+        this(topico.getTitulo(), topico.getMensagem(), topico.getData(), topico.getStatus(), topico.getAutor().getNome(), topico.getCurso().getNome()
         );
     }
 }
