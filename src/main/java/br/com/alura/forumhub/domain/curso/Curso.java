@@ -1,6 +1,7 @@
 package br.com.alura.forumhub.domain.curso;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,5 +26,16 @@ public class Curso {
     public Curso(DadosCadastroCurso dados) {
         this.nome = dados.nome();
         this.categoria = dados.categoria();
+    }
+
+    public void atualizarInformacoes(@Valid DadosAtualizacaoCurso dados) {
+
+        if (dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+
+        if (dados.categoria() != null) {
+            this.categoria = dados.categoria();
+        }
     }
 }

@@ -33,15 +33,15 @@ public class Usuario {
 
     public void atualizarInformacoes(@Valid DadosAtualizacaoUsuario dados) {
 
-        if (dados.nome() != null){
+        if (dados.nome() != null) {
             this.nome = dados.nome();
         }
 
-        if (dados.email() != null){
+        if (dados.email() != null) {
             this.email = dados.email();
         }
 
-        if (dados.senha() != null){
+        if (dados.senha() != null) {
             this.senha = dados.senha();
         }
     }

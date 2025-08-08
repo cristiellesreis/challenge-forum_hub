@@ -1,7 +1,5 @@
 package br.com.alura.forumhub.controller;
 
-import br.com.alura.forumhub.domain.topico.DadosDetalhamentoTopico;
-import br.com.alura.forumhub.domain.topico.DadosListagemTopico;
 import br.com.alura.forumhub.domain.usuario.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,7 @@ public class UsuarioController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroUsuario dados, UriComponentsBuilder uriBuilder){
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroUsuario dados, UriComponentsBuilder uriBuilder) {
 
         var usuario = new Usuario(dados);
         repository.save(usuario);
@@ -32,7 +30,7 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemUsuario>> listar(@PageableDefault(size=10, sort = {"nome"}) Pageable paginacao){
+    public ResponseEntity<Page<DadosListagemUsuario>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         var page = repository.findAll(paginacao).map(DadosListagemUsuario::new);
         return ResponseEntity.ok(page);
     }
