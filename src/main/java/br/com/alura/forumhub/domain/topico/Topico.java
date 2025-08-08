@@ -1,7 +1,7 @@
-package br.com.alura.forumhub.topico;
+package br.com.alura.forumhub.domain.topico;
 
-import br.com.alura.forumhub.curso.Curso;
-import br.com.alura.forumhub.usuario.Usuario;
+import br.com.alura.forumhub.domain.curso.Curso;
+import br.com.alura.forumhub.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

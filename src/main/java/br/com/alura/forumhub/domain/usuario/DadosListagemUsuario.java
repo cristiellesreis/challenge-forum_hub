@@ -1,4 +1,4 @@
-package br.com.alura.forumhub.usuario;
+package br.com.alura.forumhub.domain.usuario;
 
 public record DadosListagemUsuario(Long id, String nome) {
 

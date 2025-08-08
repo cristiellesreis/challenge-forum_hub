@@ -1,8 +1,6 @@
 package br.com.alura.forumhub.controller;
 
-import br.com.alura.forumhub.topico.DadosAtualizacaoTopico;
-import br.com.alura.forumhub.topico.DadosListagemTopico;
-import br.com.alura.forumhub.usuario.*;
+import br.com.alura.forumhub.domain.usuario.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,8 +9,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("usuarios")

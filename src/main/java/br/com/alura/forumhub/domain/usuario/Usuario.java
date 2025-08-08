@@ -1,6 +1,5 @@
-package br.com.alura.forumhub.usuario;
+package br.com.alura.forumhub.domain.usuario;
 
-import br.com.alura.forumhub.topico.DadosAtualizacaoTopico;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

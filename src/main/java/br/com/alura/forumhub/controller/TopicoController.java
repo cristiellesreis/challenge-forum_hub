@@ -1,10 +1,10 @@
 package br.com.alura.forumhub.controller;
 
-import br.com.alura.forumhub.curso.Curso;
-import br.com.alura.forumhub.curso.CursoRepository;
-import br.com.alura.forumhub.topico.*;
-import br.com.alura.forumhub.usuario.Usuario;
-import br.com.alura.forumhub.usuario.UsuarioRepository;
+import br.com.alura.forumhub.domain.curso.Curso;
+import br.com.alura.forumhub.domain.curso.CursoRepository;
+import br.com.alura.forumhub.domain.topico.*;
+import br.com.alura.forumhub.domain.usuario.Usuario;
+import br.com.alura.forumhub.domain.usuario.UsuarioRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -51,10 +51,9 @@ public class TopicoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DadosListagemTopico> detalhar(@PathVariable Long id) {
+    public ResponseEntity<DadosDetalhamentoTopico> detalhar(@PathVariable Long id) {
         var topico = repository.getReferenceById(id);
-        var dadosListagemTopico = new DadosListagemTopico(topico);
-        return ResponseEntity.ok(dadosListagemTopico);
+        return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
     }
 
     @PutMapping("/{id}")

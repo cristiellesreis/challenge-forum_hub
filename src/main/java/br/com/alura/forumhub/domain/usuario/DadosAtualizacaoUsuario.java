@@ -1,9 +1,10 @@
-package br.com.alura.forumhub.usuario;
+package br.com.alura.forumhub.domain.usuario;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-public record DadosCadastroUsuario(
+public record DadosAtualizacaoUsuario(
 
         @NotBlank
         String nome,
@@ -12,6 +13,6 @@ public record DadosCadastroUsuario(
         @Email
         String email,
 
-        @NotBlank
+        @NotNull
         String senha) {
 }

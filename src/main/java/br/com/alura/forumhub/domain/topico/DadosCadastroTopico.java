@@ -1,7 +1,7 @@
-package br.com.alura.forumhub.topico;
+package br.com.alura.forumhub.domain.topico;
 
-import br.com.alura.forumhub.curso.DadosCadastroCurso;
-import br.com.alura.forumhub.usuario.DadosUsuario;
+import br.com.alura.forumhub.domain.curso.DadosCadastroCurso;
+import br.com.alura.forumhub.domain.usuario.DadosUsuario;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

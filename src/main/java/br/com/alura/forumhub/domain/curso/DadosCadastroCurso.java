@@ -1,4 +1,4 @@
-package br.com.alura.forumhub.curso;
+package br.com.alura.forumhub.domain.curso;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

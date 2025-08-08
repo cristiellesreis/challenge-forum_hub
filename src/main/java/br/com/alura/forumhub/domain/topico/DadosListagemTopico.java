@@ -1,7 +1,7 @@
-package br.com.alura.forumhub.topico;
+package br.com.alura.forumhub.domain.topico;
 
-import br.com.alura.forumhub.curso.DadosListagemCurso;
-import br.com.alura.forumhub.usuario.DadosUsuario;
+import br.com.alura.forumhub.domain.curso.DadosListagemCurso;
+import br.com.alura.forumhub.domain.usuario.DadosUsuario;
 
 import java.time.LocalDateTime;
 
