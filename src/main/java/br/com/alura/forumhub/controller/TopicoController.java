@@ -3,6 +3,7 @@ package br.com.alura.forumhub.controller;
 import br.com.alura.forumhub.domain.curso.CursoRepository;
 import br.com.alura.forumhub.domain.topico.*;
 import br.com.alura.forumhub.domain.usuario.UsuarioRepository;
+import br.com.alura.forumhub.infra.TratadorDeErros;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,6 +31,10 @@ public class TopicoController {
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroTopico dados, UriComponentsBuilder uriBuilder) {
+
+        if (repository.existsByTituloAndMensagem(dados.titulo(), dados.mensagem())) {
+            throw new TratadorDeErros.TopicoDuplicadoException("Já existe um tópico com esse título e mensagem.");
+        }
 
         var autor = usuarioRepository.getReferenceById(dados.autor().id());
         var curso = cursoRepository.getReferenceById(dados.curso().id());
