@@ -48,5 +48,11 @@ public class RespostaController {
         return ResponseEntity.ok(page);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity detalhar(@PathVariable Long id) {
+        var resposta = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoResposta(resposta));
+    }
+
 
 }
