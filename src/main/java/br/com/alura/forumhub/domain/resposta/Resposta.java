@@ -49,7 +49,7 @@ public class Resposta {
             this.mensagem = dados.mensagem();
         }
 
-        if (dados.solucao() != null){
+        if (dados.solucao() != null) {
             this.solucao = dados.solucao();
         }
     }

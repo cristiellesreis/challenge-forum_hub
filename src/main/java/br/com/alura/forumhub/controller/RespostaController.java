@@ -1,8 +1,5 @@
 package br.com.alura.forumhub.controller;
 
-import br.com.alura.forumhub.domain.curso.DadosAtualizacaoCurso;
-import br.com.alura.forumhub.domain.curso.DadosDetalhamentoCurso;
-import br.com.alura.forumhub.domain.curso.DadosListagemCurso;
 import br.com.alura.forumhub.domain.resposta.*;
 import br.com.alura.forumhub.domain.topico.TopicoRepository;
 import br.com.alura.forumhub.domain.usuario.UsuarioRepository;
