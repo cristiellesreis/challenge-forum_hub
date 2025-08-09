@@ -3,6 +3,7 @@ package br.com.alura.forumhub.domain.resposta;
 import br.com.alura.forumhub.domain.topico.Topico;
 import br.com.alura.forumhub.domain.usuario.Usuario;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
