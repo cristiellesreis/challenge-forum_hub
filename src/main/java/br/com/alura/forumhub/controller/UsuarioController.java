@@ -1,5 +1,7 @@
 package br.com.alura.forumhub.controller;
 
+import br.com.alura.forumhub.domain.perfil.Perfil;
+import br.com.alura.forumhub.domain.perfil.PerfilRepository;
 import br.com.alura.forumhub.domain.usuario.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @RestController
 @RequestMapping("usuarios")
 public class UsuarioController {
@@ -18,11 +23,17 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository repository;
 
+    @Autowired
+    private PerfilRepository perfilRepository;
+
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroUsuario dados, UriComponentsBuilder uriBuilder) {
 
-        var usuario = new Usuario(dados);
+        Set<Perfil> perfis = new HashSet<>(perfilRepository.findAllById(dados.perfisIds()));
+
+        var usuario = new Usuario(dados, perfis);
+
         repository.save(usuario);
 
         var uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();

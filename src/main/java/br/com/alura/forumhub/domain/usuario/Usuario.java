@@ -1,10 +1,14 @@
 package br.com.alura.forumhub.domain.usuario;
 
+import br.com.alura.forumhub.domain.perfil.Perfil;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "usuarios")
@@ -21,14 +25,23 @@ public class Usuario {
     private String email;
     private String senha;
 
+    @ManyToMany
+    @JoinTable(name = "usuarios_perfis", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "perfil_id"))
+    Set<Perfil> perfis;
+
+
     public Usuario(DadosUsuario dados) {
         this.nome = dados.nome();
+        this.perfis = dados.perfis().stream()
+                .map(nome -> new Perfil(null, nome))
+                .collect(Collectors.toSet());
     }
 
-    public Usuario(DadosCadastroUsuario dados) {
+    public Usuario(DadosCadastroUsuario dados, Set<Perfil> perfis) {
         this.nome = dados.nome();
         this.email = dados.email();
         this.senha = dados.senha();
+        this.perfis = perfis;
     }
 
     public void atualizarInformacoes(@Valid DadosAtualizacaoUsuario dados) {
