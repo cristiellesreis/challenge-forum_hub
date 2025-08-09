@@ -1,5 +1,6 @@
 package br.com.alura.forumhub.controller;
 
+import br.com.alura.forumhub.domain.curso.DadosAtualizacaoCurso;
 import br.com.alura.forumhub.domain.curso.DadosDetalhamentoCurso;
 import br.com.alura.forumhub.domain.curso.DadosListagemCurso;
 import br.com.alura.forumhub.domain.resposta.*;
@@ -51,6 +52,14 @@ public class RespostaController {
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id) {
         var resposta = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoResposta(resposta));
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity atualizar(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoResposta dados) {
+        var resposta = repository.getReferenceById(id);
+        resposta.atualizarInformacoes(dados);
         return ResponseEntity.ok(new DadosDetalhamentoResposta(resposta));
     }
 

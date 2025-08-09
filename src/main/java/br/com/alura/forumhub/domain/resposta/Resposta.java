@@ -42,4 +42,15 @@ public class Resposta {
         this.data = LocalDateTime.now();
         this.solucao = false;
     }
+
+    public void atualizarInformacoes(@Valid DadosAtualizacaoResposta dados) {
+
+        if (dados.mensagem() != null) {
+            this.mensagem = dados.mensagem();
+        }
+
+        if (dados.solucao() != null){
+            this.solucao = dados.solucao();
+        }
+    }
 }
