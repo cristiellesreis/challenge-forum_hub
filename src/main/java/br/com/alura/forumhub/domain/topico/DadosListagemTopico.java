@@ -11,10 +11,11 @@ public record DadosListagemTopico(Long id,
                                   LocalDateTime data,
                                   StatusTopico status,
                                   DadosUsuario autor,
-                                  DadosListagemCurso curso) {
+                                  DadosListagemCurso curso,
+                                  String respostas) {
 
 
     public DadosListagemTopico(Topico topico) {
-        this(topico.getId(), topico.getTitulo(), topico.getMensagem(), topico.getData(), topico.getStatus(), new DadosUsuario(topico.getAutor().getId(), topico.getAutor().getNome()), new DadosListagemCurso(topico.getCurso()));
+        this(topico.getId(), topico.getTitulo(), topico.getMensagem(), topico.getData(), topico.getStatus(), new DadosUsuario(topico.getAutor().getId(), topico.getAutor().getNome()), new DadosListagemCurso(topico.getCurso()), topico.getRespostas());
     }
 }

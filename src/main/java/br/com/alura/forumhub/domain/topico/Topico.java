@@ -1,6 +1,7 @@
 package br.com.alura.forumhub.domain.topico;
 
 import br.com.alura.forumhub.domain.curso.Curso;
+import br.com.alura.forumhub.domain.resposta.Resposta;
 import br.com.alura.forumhub.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
@@ -10,6 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "topicos")
 @Entity(name = "Topico")
@@ -37,6 +40,10 @@ public class Topico {
     @JoinColumn(name = "curso_id")
     private Curso curso;
 
+    @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL)
+    private List<Resposta> respostas = new ArrayList<>();
+
+
     public Topico(DadosCadastroTopico dados, Usuario autor, Curso curso) {
         this.titulo = dados.titulo();
         this.mensagem = dados.mensagem();
@@ -44,6 +51,7 @@ public class Topico {
         this.status = dados.status();
         this.autor = autor;
         this.curso = curso;
+
     }
 
     public void atualizarInformacoes(@Valid DadosAtualizacaoTopico dados) {
