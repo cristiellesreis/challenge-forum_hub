@@ -6,9 +6,11 @@ public record DadosDetalhamentoResposta(Long id,
                                         String mensagem,
                                         LocalDateTime data,
                                         String autorNome,
-                                        Boolean solucao) {
+                                        Boolean solucao,
+                                        Long topicoId,
+                                        String topicoTitulo) {
 
     public DadosDetalhamentoResposta(Resposta resposta) {
-        this(resposta.getId(), resposta.getMensagem(), resposta.getData(), resposta.getAutor().getNome(), resposta.getSolucao());
+        this(resposta.getId(), resposta.getMensagem(), resposta.getData(), resposta.getAutor().getNome(), resposta.getSolucao(), resposta.getTopico().getId(), resposta.getTopico().getTitulo());
     }
 }

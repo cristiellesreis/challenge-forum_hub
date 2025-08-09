@@ -63,5 +63,13 @@ public class RespostaController {
         return ResponseEntity.ok(new DadosDetalhamentoResposta(resposta));
     }
 
-
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity excluir(@PathVariable Long id) {
+        if (repository.findById(id).isPresent()) {
+            repository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
