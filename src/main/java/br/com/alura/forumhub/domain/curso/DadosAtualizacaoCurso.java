@@ -7,10 +7,7 @@ public record DadosAtualizacaoCurso(
 
         Long id,
 
-
-        @NotBlank
         String nome,
 
-        @NotNull
         CategoriaCursos categoria) {
 }

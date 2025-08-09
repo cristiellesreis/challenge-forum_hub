@@ -57,7 +57,12 @@ public class UsuarioController {
     public ResponseEntity atualizar(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoUsuario dados) {
         var usuario = repository.getReferenceById(id);
 
-        usuario.atualizarInformacoes(dados);
+        Set<Perfil> perfis = new HashSet<>();
+        if (dados.perfisIds() != null && !dados.perfisIds().isEmpty()) {
+            perfis.addAll(perfilRepository.findAllById(dados.perfisIds()));
+        }
+
+        usuario.atualizarInformacoes(dados, perfis);
 
         return ResponseEntity.ok(new DadosListagemUsuario(usuario));
     }

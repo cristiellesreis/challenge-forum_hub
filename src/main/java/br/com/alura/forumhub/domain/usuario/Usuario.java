@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -44,7 +45,7 @@ public class Usuario {
         this.perfis = perfis;
     }
 
-    public void atualizarInformacoes(@Valid DadosAtualizacaoUsuario dados) {
+    public void atualizarInformacoes(@Valid DadosAtualizacaoUsuario dados, Set<Perfil> perfis) {
 
         if (dados.nome() != null) {
             this.nome = dados.nome();
@@ -57,5 +58,11 @@ public class Usuario {
         if (dados.senha() != null) {
             this.senha = dados.senha();
         }
+
+        if (perfis != null && !perfis.isEmpty()) {
+            this.perfis.clear();
+            this.perfis.addAll(perfis);
+        }
     }
+
 }
