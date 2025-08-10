@@ -1,20 +1,14 @@
 package br.com.alura.forumhub.domain.usuario;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.Set;
 
-public record DadosAtualizacaoUsuario(
+public record DadosAtualizacaoUsuario(String nome,
 
-        String nome,
+                                      @Email
+                                      String email,
 
-        @Email
-        String email,
-
-        String senha,
-
-        Set<Long> perfisIds) {
+                                      String senha,
+                                      Set<Long> perfisIds) {
 }
