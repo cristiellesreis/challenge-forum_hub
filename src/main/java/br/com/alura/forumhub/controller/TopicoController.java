@@ -3,7 +3,7 @@ package br.com.alura.forumhub.controller;
 import br.com.alura.forumhub.domain.curso.CursoRepository;
 import br.com.alura.forumhub.domain.topico.*;
 import br.com.alura.forumhub.domain.usuario.UsuarioRepository;
-import br.com.alura.forumhub.infra.TratadorDeErros;
+import br.com.alura.forumhub.infra.exception.TratadorDeErros;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
