@@ -30,10 +30,16 @@ public class UsuarioController {
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroUsuario dados, UriComponentsBuilder uriBuilder) {
 
+        if (repository.existsByEmail(dados.email())) {
+            return ResponseEntity.badRequest().body("E-mail já cadastrado.");
+        }
+
         Set<Perfil> perfis = new HashSet<>(perfilRepository.findAllById(dados.perfisIds()));
+        if (perfis.isEmpty()) {
+            return ResponseEntity.badRequest().body("Nenhum perfil encontrado para os IDs informados.");
+        }
 
         var usuario = new Usuario(dados, perfis);
-
         repository.save(usuario);
 
         var uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
