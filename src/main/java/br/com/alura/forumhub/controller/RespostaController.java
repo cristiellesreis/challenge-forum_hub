@@ -4,11 +4,13 @@ import br.com.alura.forumhub.domain.resposta.*;
 import br.com.alura.forumhub.domain.topico.TopicoRepository;
 import br.com.alura.forumhub.domain.usuario.Usuario;
 import br.com.alura.forumhub.domain.usuario.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,19 +59,41 @@ public class RespostaController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity atualizar(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoResposta dados) {
-        var resposta = repository.getReferenceById(id);
+    public ResponseEntity atualizar(@PathVariable Long id,
+                                    @RequestBody @Valid DadosAtualizacaoResposta dados,
+                                    @AuthenticationPrincipal Usuario usuario) {
+
+        var resposta = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Resposta não encontrada"));
+
+        boolean isAdmin = usuario.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equalsIgnoreCase("ROLE_ADMINISTRADOR"));
+
+        if (!isAdmin && !resposta.getAutor().getId().equals(usuario.getId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Você não tem permissão para atualizar esta resposta.");
+        }
+
         resposta.atualizarInformacoes(dados);
         return ResponseEntity.ok(new DadosDetalhamentoResposta(resposta));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity excluir(@PathVariable Long id) {
-        if (repository.findById(id).isPresent()) {
-            repository.deleteById(id);
-            return ResponseEntity.noContent().build();
+    public ResponseEntity excluir(@PathVariable Long id, @AuthenticationPrincipal Usuario usuario) {
+
+        var resposta = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Resposta não encontrada"));
+
+        boolean isAdmin = usuario.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equalsIgnoreCase("ROLE_ADMINISTRADOR"));
+
+        if (!isAdmin && !resposta.getAutor().getId().equals(usuario.getId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Você não tem permissão para excluir esta resposta.");
         }
-        return ResponseEntity.notFound().build();
+
+        repository.delete(resposta);
+        return ResponseEntity.noContent().build();
     }
 }

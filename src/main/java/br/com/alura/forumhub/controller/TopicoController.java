@@ -66,11 +66,21 @@ public class TopicoController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity atualizar(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoTopico dados) {
-        var topico = repository.getReferenceById(id);
+    public ResponseEntity atualizar(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoTopico dados,
+                                    @AuthenticationPrincipal Usuario usuario) {
+
+        var topico = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Tópico não encontrado"));
+
+        boolean isAdmin = usuario.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equalsIgnoreCase("ROLE_ADMINISTRADOR"));
+
+        if (!isAdmin && !topico.getAutor().getId().equals(usuario.getId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Você não tem permissão para atualizar este tópico.");
+        }
 
         topico.atualizarInformacoes(dados);
-
         return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
     }
 
