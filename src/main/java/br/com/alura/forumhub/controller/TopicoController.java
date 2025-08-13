@@ -5,6 +5,8 @@ import br.com.alura.forumhub.domain.topico.*;
 import br.com.alura.forumhub.domain.usuario.Usuario;
 import br.com.alura.forumhub.domain.usuario.UsuarioRepository;
 import br.com.alura.forumhub.infra.exception.TratadorDeErros;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,7 @@ public class TopicoController {
 
     @PostMapping
     @Transactional
+    @Operation(summary = "Cadastra um tópico", security = @SecurityRequirement(name = "bearer-key"))
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroTopico dados, UriComponentsBuilder uriBuilder,
                                     @AuthenticationPrincipal Usuario usuario) {
 
@@ -52,18 +55,21 @@ public class TopicoController {
         return ResponseEntity.created(uri).body(new DadosDetalhamentoTopico(topico));
     }
 
+    @Operation(summary = "Lista tópicos paginados do mais recente para o mais antigo", security = @SecurityRequirement(name = "bearer-key"))
     @GetMapping
     public ResponseEntity<Page<DadosListagemTopico>> listar(@PageableDefault(size = 10, sort = "data", direction = Sort.Direction.ASC) Pageable paginacao) {
         var page = repository.findAll(paginacao).map(DadosListagemTopico::new);
         return ResponseEntity.ok(page);
     }
 
+    @Operation(summary = "Detalha um tópico", security = @SecurityRequirement(name = "bearer-key"))
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id) {
         var topico = repository.getReferenceById(id);
         return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
     }
 
+    @Operation(summary = "Atualiza um tópico", security = @SecurityRequirement(name = "bearer-key"))
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity atualizar(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoTopico dados,
@@ -84,6 +90,7 @@ public class TopicoController {
         return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
     }
 
+    @Operation(summary = "Exclui um tópico", security = @SecurityRequirement(name = "bearer-key"))
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id, @AuthenticationPrincipal Usuario usuario) {

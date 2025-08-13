@@ -4,11 +4,14 @@ import br.com.alura.forumhub.domain.resposta.*;
 import br.com.alura.forumhub.domain.topico.TopicoRepository;
 import br.com.alura.forumhub.domain.usuario.Usuario;
 import br.com.alura.forumhub.domain.usuario.UsuarioRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +33,7 @@ public class RespostaController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Operation(summary = "Cadastra uma resposta", security = @SecurityRequirement(name = "bearer-key"))
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroResposta dados, UriComponentsBuilder uriBuilder,
@@ -45,18 +49,21 @@ public class RespostaController {
         return ResponseEntity.created(uri).body(new DadosDetalhamentoResposta(resposta));
     }
 
-    @GetMapping("/topico/{id}")
-    public ResponseEntity<Page<DadosListagemResposta>> listar(@PageableDefault(size = 10, sort = {"data"}) Pageable paginacao) {
+    @Operation(summary = "Lista respostas paginadas do mais recente para o mais antigo", security = @SecurityRequirement(name = "bearer-key"))
+    @GetMapping
+    public ResponseEntity<Page<DadosListagemResposta>> listar(@PageableDefault(size = 10, sort = "data", direction = Sort.Direction.ASC) Pageable paginacao) {
         var page = repository.findAll(paginacao).map(DadosListagemResposta::new);
         return ResponseEntity.ok(page);
     }
 
+    @Operation(summary = "Detalha uma resposta", security = @SecurityRequirement(name = "bearer-key"))
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id) {
         var resposta = repository.getReferenceById(id);
         return ResponseEntity.ok(new DadosDetalhamentoResposta(resposta));
     }
 
+    @Operation(summary = "Atualiza uma resposta", security = @SecurityRequirement(name = "bearer-key"))
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity atualizar(@PathVariable Long id,
@@ -78,6 +85,7 @@ public class RespostaController {
         return ResponseEntity.ok(new DadosDetalhamentoResposta(resposta));
     }
 
+    @Operation(summary = "Exclui uma resposta", security = @SecurityRequirement(name = "bearer-key"))
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id, @AuthenticationPrincipal Usuario usuario) {

@@ -4,6 +4,8 @@ import br.com.alura.forumhub.domain.usuario.DadosAutenticacao;
 import br.com.alura.forumhub.domain.usuario.Usuario;
 import br.com.alura.forumhub.infra.security.DadosTokenJWT;
 import br.com.alura.forumhub.infra.security.TokenService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +25,6 @@ public class AutenticacaoController {
 
     @Autowired
     private TokenService tokenService;
-
 
     @PostMapping
     public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
