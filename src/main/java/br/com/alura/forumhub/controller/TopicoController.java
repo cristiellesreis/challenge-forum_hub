@@ -2,6 +2,7 @@ package br.com.alura.forumhub.controller;
 
 import br.com.alura.forumhub.domain.curso.CursoRepository;
 import br.com.alura.forumhub.domain.topico.*;
+import br.com.alura.forumhub.domain.usuario.Usuario;
 import br.com.alura.forumhub.domain.usuario.UsuarioRepository;
 import br.com.alura.forumhub.infra.exception.TratadorDeErros;
 import jakarta.validation.Valid;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -30,13 +32,14 @@ public class TopicoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroTopico dados, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroTopico dados, UriComponentsBuilder uriBuilder,
+                                    @AuthenticationPrincipal Usuario usuario) {
 
         if (repository.existsByTituloAndMensagem(dados.titulo(), dados.mensagem())) {
             throw new TratadorDeErros.TopicoDuplicadoException("Já existe um tópico com esse título e mensagem.");
         }
 
-        var autor = usuarioRepository.getReferenceById(dados.autor().id());
+        var autor = usuarioRepository.getReferenceById(usuario.getId());
         var curso = cursoRepository.getReferenceById(dados.curso().id());
         var topico = new Topico(dados, autor, curso);
 

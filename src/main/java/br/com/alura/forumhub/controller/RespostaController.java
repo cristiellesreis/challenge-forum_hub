@@ -2,6 +2,7 @@ package br.com.alura.forumhub.controller;
 
 import br.com.alura.forumhub.domain.resposta.*;
 import br.com.alura.forumhub.domain.topico.TopicoRepository;
+import br.com.alura.forumhub.domain.usuario.Usuario;
 import br.com.alura.forumhub.domain.usuario.UsuarioRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -28,9 +30,10 @@ public class RespostaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroResposta dados, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroResposta dados, UriComponentsBuilder uriBuilder,
+                                    @AuthenticationPrincipal Usuario usuario) {
         var topico = topicoRepository.getReferenceById(dados.topicoId());
-        var autor = usuarioRepository.getReferenceById(dados.autorId());
+        var autor = usuarioRepository.getReferenceById(usuario.getId());
 
         var resposta = new Resposta(dados.mensagem(), topico, autor);
         repository.save(resposta);

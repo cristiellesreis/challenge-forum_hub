@@ -7,8 +7,5 @@ public record DadosCadastroResposta(@NotBlank
                                     String mensagem,
 
                                     @NotNull
-                                    Long topicoId,
-
-                                    @NotNull
-                                    Long autorId) {
+                                    Long topicoId) {
 }

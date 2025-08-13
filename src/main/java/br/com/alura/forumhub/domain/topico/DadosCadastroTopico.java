@@ -19,8 +19,5 @@ public record DadosCadastroTopico(
         StatusTopico status,
 
         @NotNull
-        DadosUsuario autor,
-
-        @NotNull
         DadosCadastroCurso curso) {
 }
