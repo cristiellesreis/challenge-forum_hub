@@ -1,5 +1,16 @@
-# Challenge Fórum Hub 👥
+# Challenge API Fórum Hub 👥
 API REST desenvolvida no Challenge Back End da Alura + Oracle Next Education para simular um fórum com múltiplos recursos e autenticação.
+
+---
+## Tecnologias
+
+- Java 17+  
+- Spring Boot 
+- Spring Data JPA
+- Spring Security JWT
+- Banco relacional (MySql)
+- Flyway
+- Swagger
 
 ---
 ## Endpoints principais
@@ -19,15 +30,14 @@ API REST desenvolvida no Challenge Back End da Alura + Oracle Next Education par
 - **Persistência em banco relacional**
 
 ---
-## Tecnologias
+## Estrutura do Banco de Dados
 
-- Java 17+  
-- Spring Boot 
-- Spring Data JPA
-- Spring Security JWT
-- Banco relacional (MySql)
-- Flyway
-- Swagger
+- ```cursos(id, nome, categoria)```
+- ```usuarios(id, nome, email, senha)```
+- ```perfis(id, nome(administrador, usuario)```
+- ```usuarios_perfis(usuario_id, perfil_id)```
+- ```topicos(id, titulo, mensagem, data, status, autor_id, curso_id)```
+- ```respostas(id, mensagem, data, solucao, topico_id, autor_id)```
 
 ---
 ## Configuração
@@ -52,16 +62,17 @@ Rode o comando:
 ```bash
 ./mvnw spring-boot:run
 ```
-## Documentação
-
-Acesse a API no [swagger](http://localhost:8080/swagger-ui/index.html)
-
 ## Autenticação
 
 Para acessar endpoints protegidos, envie o JWT no cabeçalho:
 ```
 Authorization: Bearer <SEU_TOKEN>
 ```
+
+---
+## Documentação
+
+Acesse a API no [swagger](http://localhost:8080/swagger-ui/index.html)
 
 ---
 ## 📚 Créditos
