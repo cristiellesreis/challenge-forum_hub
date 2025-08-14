@@ -10,12 +10,13 @@ API REST desenvolvida no Challenge Back End da Alura + Oracle Next Education par
 - Spring Security JWT
 - Banco relacional (MySql)
 - Flyway
+- Maven
 - Swagger
 
 ---
 ## Endpoints principais
 
-- **CRUD completo** para usuários, tópicos, cursos e respostas (operando via REST)  
+- **CRUD** para usuários, tópicos, cursos e respostas (operando via REST)  
   - **POST**: criar  
   - **GET**: consultar/listar  
   - **PUT**: atualizar  
