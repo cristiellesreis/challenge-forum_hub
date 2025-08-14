@@ -24,10 +24,10 @@ API REST desenvolvida no Challenge Back End da Alura + Oracle Next Education par
 - Java 17+  
 - Spring Boot 
 - Spring Data JPA
-- Spring Security
+- Spring Security JWT
 - Banco relacional (MySql)
-- JWT 
-- Maven
+- Flyway
+- Swagger
 
 ---
 ## Configuração
@@ -44,6 +44,7 @@ Configure o banco de dados no application.properties:
 spring.datasource.url=${DATASOURCE_URL}
 spring.datasource.username=${DATASOURCE_USERNAME}
 spring.datasource.password=${DATASOURCE_PASSWORD}
+api.security.token.secret=${JWT_SECRET}
 ```
 ## Executando a aplicação
 
@@ -51,7 +52,9 @@ Rode o comando:
 ```bash
 ./mvnw spring-boot:run
 ```
-Acesse a API localmente em: [http://localhost:8080](http://localhost:8080)
+## Documentação
+
+Acesse a API no [swagger](http://localhost:8080/swagger-ui/index.html)
 
 ## Autenticação
 
