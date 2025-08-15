@@ -76,13 +76,13 @@ Authorization: Bearer <SEU_TOKEN>
 Acesse a API no [swagger](http://localhost:8080/swagger-ui/index.html)
 
 ---
-## 📚 Créditos
+## Créditos
 Este projeto foi proposto como desafio pelo programa:
 
 - [Oracle Next Education](https://www.oracle.com/br/education/oracle-next-education/)
 - [Alura - Cursos de tecnologia](https://www.alura.com.br/)
 
-## 📄 Licença
+## Licença
 Projeto de uso educacional, livre para estudos e modificações.
 
 ---
